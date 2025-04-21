@@ -214,6 +214,26 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Open Neo-tree automatically when Neovim starts
+vim.api.nvim_create_autocmd('VimEnter', {
+  desc = 'Open Neo-tree on startup',
+  group = vim.api.nvim_create_augroup('neotree-auto-open', { clear = true }),
+  callback = function()
+    vim.cmd('Neotree toggle')
+  end,
+})
+
+vim.g.rustaceanvim = {
+  server = {
+    cmd = { "/local/home/todlehn/.toolbox/bin/rust-analyzer" },
+    default_settings = {
+      ['rust-analyzer'] = {
+        cmd = { "/local/home/todlehn/.toolbox/bin/rust-analyzer" },
+      },
+    },
+  },
+}
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -930,6 +950,12 @@ require('lazy').setup({
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^5', -- Recommended
+    lazy = false, -- This plugin is already lazy
+  },
+
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
@@ -965,12 +991,12 @@ require('lazy').setup({
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+require 'kickstart.plugins.debug',
+require 'kickstart.plugins.indent_line',
+require 'kickstart.plugins.lint',
+require 'kickstart.plugins.autopairs',
+require 'kickstart.plugins.neo-tree',
+require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
