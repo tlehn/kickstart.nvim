@@ -223,16 +223,8 @@ vim.api.nvim_create_autocmd('VimEnter', {
   end,
 })
 
-vim.g.rustaceanvim = {
-  server = {
-    cmd = { "/local/home/todlehn/.toolbox/bin/rust-analyzer" },
-    default_settings = {
-      ['rust-analyzer'] = {
-        cmd = { "/local/home/todlehn/.toolbox/bin/rust-analyzer" },
-      },
-    },
-  },
-}
+-- Load rust-analyzer settings from separate file
+vim.g.rustaceanvim = require('custom.rust')
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
